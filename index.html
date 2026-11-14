@@ -1,175 +1,2428 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>调酒师档案 · 方休</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-weight:300;}
-body{
-  background:#f0f1f3;
-  color:#44474c;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  overflow-x:hidden;
-  line-height:1.7;
-}
-.frost{
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-#opening{
-  width:100vw;height:100vh;
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(145deg,#e8eaed,#f3f4f6);
-  overflow:hidden;
-}
-.liquid{
-  position:absolute;bottom:30%;left:50%;transform:translateX(-50%);
-  width:80px;height:0px;
-  background:linear-gradient(180deg,rgba(220,224,230,0.6),rgba(190,196,205,0.4));
-  border-radius:0 0 40px 40px;
-  animation: pour 4s ease-out forwards;
-}
-@keyframes pour{
-  0%{height:0;opacity:0.8}
-  100%{height:110px;opacity:0.65}
-}
-.orchid{
-  position:absolute;left:50%;top:20%;transform:translateX(-50%);
-  width:36px;height:36px;
-  opacity:0;
-  animation: fall 5s ease-in-out forwards, sway 3s ease-in-out infinite alternate;
-}
-@keyframes fall{
-  0%{top:20%;opacity:0}
-  40%{opacity:0.7}
-  100%{top:calc(30% + 90px);opacity:0.6}
-}
-@keyframes sway{
-  0%{transform:translateX(-50%) rotate(-4deg)}
-  100%{transform:translateX(-50%) rotate(4deg)}
-}
-.glass{
-  position:absolute;left:50%;bottom:22%;transform:translateX(-50%);
-  width:100px;height:140px;
-  border:1px solid rgba(160,166,175,0.4);
-  border-top:none;
-  border-radius:0 0 50px 50px;
-  opacity:0.55;
-}
-.title-text{
-  position:absolute;top:48%;left:50%;transform:translate(-50%,-50%);
-  text-align:center;
-  opacity:0;
-  animation: fadeIn 2s ease forwards 4s;
-  font-size:24px;letter-spacing:2px;
-}
-.sub-ru{
-  font-size:14px;
-  opacity:0.45;
-  margin-top:8px;
-  animation: fadeIn 2s ease forwards 5s;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translate(-50%,-45%)}
-  to{opacity:1;transform:translate(-50%,-50%)}
-}
-.name-box{
-  position:absolute;bottom:18%;left:50%;transform:translateX(-50%);
-  width:320px;
-  padding:24px 28px;
-  border:1px solid rgba(150,156,164,0.4);
-  border-radius:12px;
-  background:rgba(255,255,255,0.35);
-  display:none;
-  animation: boxShow 1.5s ease forwards 6s;
-}
-@keyframes boxShow{
-  from{opacity:0;transform:translateX(-50%) translateY(20px)}
-  to{opacity:1;transform:translateX(-50%) translateY(0)}
-}
-.name-box p{font-size:14px;margin-bottom:12px;opacity:0.7;}
-.name-box input{
-  width:100%;padding:10px 12px;
-  border:1px solid rgba(170,176,184,0.4);
-  background:rgba(255,255,255,0.5);
-  border-radius:6px;
-  outline:none;font-size:15px;
-}
-.confirm-btn{
-  margin-top:14px;width:100%;padding:10px;
-  border:1px solid rgba(130,136,144,0.5);
-  background:rgba(240,242,245,0.6);
-  border-radius:6px;
-  cursor:pointer;
-  transition:0.3s;
-}
-.confirm-btn:hover{background:rgba(228,230,234,0.75)}
-#mainWrap{display:none;padding:60px 20px;max-width:860px;margin:0 auto;}
-.welcome-tip{
-  text-align:center;font-size:15px;opacity:0.65;margin-bottom:30px;
-  letter-spacing:1px;
-}
-.book-wrap{
-  position:relative;
-  height:420px;
-  margin-bottom:60px;
-}
-.page{
-  position:absolute;width:100%;height:100%;
-  padding:36px 40px;
-  background:rgba(255,255,255,0.45);
-  border:1px solid rgba(180,186,194,0.35);
-  border-radius:14px;
-  opacity:0;pointer-events:none;
-  transition: all 0.6s ease;
-}
-.page.active{opacity:1;pointer-events:auto;z-index:2;}
-.page h2{font-size:22px;letter-spacing:2px;margin-bottom:18px;}
-.divider{
-  width:100%;height:1px;background:rgba(160,166,174,0.35);margin:16px 0 24px;
-}
-.page p{font-size:15px;opacity:0.72;}
-.page-nav{
-  text-align:center;margin-top:12px;
-}
-.page-nav button{
-  border:none;background:transparent;
-  padding:6px 16px;cursor:pointer;
-  opacity:0.6;transition:0.25s;
-}
-.page-nav button:hover{opacity:1}
-.fold-wrap{margin-bottom:60px;}
-.fold-title{
-  padding:12px 16px;border:1px solid rgba(170,176,184,0.35);
-  border-radius:10px;cursor:pointer;
-  background:rgba(255,255,255,0.3);
-}
-.fold-content{
-  margin-top:8px;padding:16px;border:1px solid rgba(170,176,184,0.35);
-  border-radius:10px;display:none;
-  background:rgba(255,255,255,0.25);
-  font-size:14px;opacity:0.7;
-}
-.eval-wrap{margin-bottom:60px;}
-.eval-wrap h3{font-size:17px;margin-bottom:18px;opacity:0.75;}
-.eval-card{
-  padding:16px 20px;border:1px solid rgba(180,186,194,0.35);
-  border-radius:10px;margin-bottom:14px;
-  background:rgba(255,255,255,0.3);
-  font-size:14px;
-}
-.eval-card .name{font-size:13px;opacity:0.55;margin-bottom:6px;}
-.interact-wrap{margin-bottom:70px;text-align:center;}
-.interact-wrap h3{font-size:17px;margin-bottom:16px;opacity:0.75;}
-.interact-wrap input{
-  width:80%;max-width:460px;padding:12px 16px;
-  border:1px solid rgba(170,176,184,0.4);
-  border-radius:8px;
-  background:rgba(255,255,255,0.4);
-  outline:none;font-size:15px;
-}
-.interact-btn{
-  margin-top:14px;padding:10px 24px;
-  border:1px solid rgba(140,146,
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冬 · 微醺 · 兰</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Zhi+Mang+Xing&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fafaf7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .canvas {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f2f2ef 100%);
+        }
+
+        /* ============ 飞鸟 ============ */
+        .bird {
+            position: absolute;
+            right: -100px;
+            top: 30%;
+            width: 80px;
+            height: 40px;
+            filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.05));
+            animation: flyLeft 9s linear infinite;
+            z-index: 2;
+        }
+
+        .bird:nth-child(2) { top: 45%; width: 50px; height: 25px; animation-duration: 13s; animation-delay: 2s; right: -120px; }
+        .bird:nth-child(3) { top: 22%; width: 40px; height: 20px; animation-duration: 16s; animation-delay: 5s; right: -150px; }
+
+        @keyframes flyLeft {
+            0%   { transform: translateX(0) scaleX(-1);      opacity: 0; }
+            8%   { opacity: 0.4; }
+            90%  { opacity: 0.4; }
+            100% { transform: translateX(-150vw) scaleX(-1); opacity: 0; }
+        }
+
+        /* ============ 酒杯容器 ============ */
+        .glass-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            overflow: visible;
+        }
+
+        .glass {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            opacity: 0;
+            transform: translateY(10px) scale(0.97);
+            animation: glassFadeIn 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        .glass.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+        @keyframes glassFadeIn {
+            0%   { opacity: 0; transform: translateY(10px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0)    scale(1); }
+        }
+
+        .glass-bowl {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 160px; height: 140px;
+            border: 1.5px solid rgba(26, 26, 26, 0.4);
+            border-top: none;
+            border-radius: 0 0 100px 100px;
+            background: transparent;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .glass-bowl::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: 50%;
+            transform: translateX(-50%);
+            width: 160px; height: 16px;
+            border: 1.5px solid rgba(26, 26, 26, 0.5);
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .glass-stem {
+            position: absolute;
+            bottom: 60px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 100px;
+            background: rgba(26, 26, 26, 0.3);
+        }
+
+        .glass-base {
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 70px; height: 6px;
+            border: 1.5px solid rgba(26, 26, 26, 0.4);
+            border-radius: 6px;
+            background: transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .pour-stream {
+            position: absolute;
+            top: -70px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 0;
+            background: linear-gradient(to bottom, rgba(212, 163, 115, 0.9) 0%, rgba(212, 163, 115, 0.3) 100%);
+            border-radius: 2px;
+            opacity: 0;
+            animation: pourStream 1.8s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+            animation-delay: 2s;
+            filter: blur(0.3px);
+        }
+
+        @keyframes pourStream {
+            0%   { height: 0;     opacity: 0; }
+            15%  { opacity: 0.9; }
+            55%  { height: 110px; opacity: 0.9; }
+            85%  { height: 110px; opacity: 0.3; }
+            100% { height: 110px; opacity: 0; }
+        }
+
+        .liquid {
+            position: absolute;
+            top: 55px; left: 50%;
+            transform: translateX(-50%);
+            width: 120px; height: 0;
+            background: radial-gradient(circle at 30% 20%, #f9d8b0, #d4a373);
+            border-radius: 0 0 60px 60px;
+            opacity: 0;
+            animation: pourLiquid 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 2.4s;
+            box-shadow: 0 0 20px rgba(212, 163, 115, 0.2);
+            overflow: hidden;
+        }
+
+        .liquid::after {
+            content: '';
+            position: absolute;
+            top: -10px; left: 10%;
+            width: 80%; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            opacity: 0.6;
+        }
+
+        @keyframes pourLiquid {
+            0%   { height: 0;    opacity: 0; }
+            20%  { opacity: 0.9; }
+            100% { height: 80px; opacity: 1; }
+        }
+
+        .orchid {
+            position: absolute;
+            top: 90px; left: 50%;
+            transform: translateX(-50%) rotate(5deg);
+            width: 70px; height: 70px;
+            opacity: 0;
+            animation: orchidFall 3s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+            animation-delay: 4.5s;
+            z-index: 10;
+        }
+
+        .orchid.visible { opacity: 1; }
+
+        @keyframes orchidFall {
+            0%   { opacity: 0; transform: translateX(-50%) translateY(-130px) rotate(-12deg) scale(0.7); }
+            20%  { opacity: 1; }
+            40%  { transform: translateX(-46%) translateY(-40px) rotate(8deg) scale(1); }
+            60%  { transform: translateX(-54%) translateY(0px)   rotate(18deg) scale(1); }
+            80%  { transform: translateX(-48%) translateY(25px)  rotate(23deg) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(35px) rotate(25deg) scale(1); }
+        }
+
+        .glass-container.shake .glass { animation: shakeGlassSimple 1.4s cubic-bezier(0.45, 0, 0.55, 1); }
+        @keyframes shakeGlassSimple {
+            0%   { transform: translateX(0)     rotate(0deg); }
+            15%  { transform: translateX(2px)   rotate(1.2deg); }
+            30%  { transform: translateX(-2px)  rotate(-1.2deg); }
+            45%  { transform: translateX(1.5px) rotate(0.8deg); }
+            60%  { transform: translateX(-1.5px)rotate(-0.8deg); }
+            80%  { transform: translateX(0.8px) rotate(0.4deg); }
+            100% { transform: translateX(0)     rotate(0deg); }
+        }
+
+        .glass-container.shake .orchid { animation: shakeOrchidSimple 1.4s cubic-bezier(0.45, 0, 0.55, 1); }
+        @keyframes shakeOrchidSimple {
+            0%   { transform: translateX(-50%)   translateY(35px)   rotate(25deg); }
+            15%  { transform: translateX(-47.5%) translateY(34px)   rotate(27deg); }
+            30%  { transform: translateX(-52.5%) translateY(36px)   rotate(23deg); }
+            45%  { transform: translateX(-48.5%) translateY(34.5px) rotate(26deg); }
+            60%  { transform: translateX(-51.5%) translateY(35.5px) rotate(24deg); }
+            80%  { transform: translateX(-49%)   translateY(35px)   rotate(25.2deg); }
+            100% { transform: translateX(-50%)   translateY(35px)   rotate(25deg); }
+        }
+
+        /* ============ 磨砂提示框 ============ */
+        .prompt-box {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, 110px);
+            width: 300px;
+            padding: 28px 22px 22px;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            z-index: 20;
+            opacity: 0;
+            filter: blur(6px);
+            pointer-events: none;
+            transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .prompt-box.show {
+            opacity: 1;
+            transform: translate(-50%, 80px);
+            filter: blur(0);
+        }
+
+        .prompt-box.active { 
+            pointer-events: auto;
+            animation: floatPrompt 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatPrompt {
+            0%   { transform: translate(-50%, 80px) translateY(0); }
+            100% { transform: translate(-50%, 80px) translateY(-8px); }
+        }
+
+        .prompt-label {
+            color: rgba(26, 26, 26, 0.6);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nickname-input {
+            width: 100%;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 40px;
+            color: #1a1a1a;
+            font-size: 16px;
+            letter-spacing: 1px;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            text-align: center;
+            font-weight: 400;
+            caret-color: #d4a373;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .nickname-input::placeholder {
+            color: rgba(0, 0, 0, 0.25);
+            font-weight: 400;
+        }
+
+        .nickname-input:focus {
+            border-color: rgba(212, 163, 115, 0.6);
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(212, 163, 115, 0.15);
+        }
+
+        /* ============ 酒单卡片 ============ */
+        .menu-card {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.94);
+            width: 360px;
+            min-height: 420px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0,0,0,0.03) inset;
+            padding: 40px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 30;
+            opacity: 0;
+            filter: blur(8px);
+            pointer-events: none;
+            transition:
+                opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .menu-card.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            filter: blur(0);
+            pointer-events: auto;
+            animation: floatCard 6s ease-in-out infinite alternate 1.2s;
+        }
+
+        @keyframes floatCard {
+            0%   { transform: translate(-50%, -50%) scale(1) translateY(0) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) scale(1) translateY(-10px) rotate(0.5deg); }
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 24px; left: 40px; right: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+        }
+
+        .menu-card::after {
+            content: '· 冬 · 微醺 ·';
+            position: absolute;
+            bottom: 20px; left: 0; width: 100%;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: rgba(0, 0, 0, 0.35);
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .menu-title {
+            font-size: 46px;
+            font-weight: 400;
+            letter-spacing: 8px;
+            color: #111;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            width: 60%;
+            font-family: 'Times New Roman', serif;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-left: 8px;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            font-weight: 400;
+            color: #444;
+            line-height: 1.6;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+
+        .welcome-text span {
+            display: inline-block;
+            color: #c89f7b;
+            font-weight: 500;
+            border-bottom: 1px dashed rgba(200, 159, 123, 0.5);
+            padding-bottom: 2px;
+            font-size: 22px;
+            letter-spacing: 2px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        .sub-line {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 2px;
+            margin-top: 16px;
+            font-weight: 400;
+            font-style: italic;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* ============ 雾态转场 ============ */
+        .mist {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            background:
+                radial-gradient(ellipse at 25% 30%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 55%),
+                radial-gradient(ellipse at 75% 65%, rgba(250,250,248,0.9) 0%, rgba(250,250,248,0) 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(242,242,240,0.75) 0%, rgba(242,242,240,0) 70%);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            transition: opacity 1.8s cubic-bezier(0.45, 0, 0.55, 1), backdrop-filter 1.8s cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .mist.show { opacity: 1; backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); }
+
+        /* ============================================================
+           银环素戒场景
+           ============================================================ */
+        .ring-scene {
+            position: fixed;
+            inset: 0;
+            z-index: 110;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .ring-scene.show { opacity: 1; }
+
+        .ring-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        .ring {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid rgba(180, 180, 180, 0.8);
+            box-shadow: 
+                inset 0 0 10px rgba(0, 0, 0, 0.03),
+                inset 0 0 2px rgba(255, 255, 255, 0.9),
+                0 0 5px rgba(0, 0, 0, 0.02);
+            transform-style: preserve-3d;
+        }
+
+        .ring::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .ring-left {
+            left: -50vw;
+            opacity: 0;
+            transform: rotateX(60deg) rotateY(30deg) rotateZ(-20deg) translateZ(50px);
+            animation: 
+                floatRingLeft 4s ease-in-out infinite alternate,
+                slideInRingLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-play-state: running, paused;
+        }
+
+        .ring-right {
+            right: -50vw;
+            opacity: 0;
+            transform: rotateX(60deg) rotateY(-30deg) rotateZ(20deg) translateZ(50px);
+            animation: 
+                floatRingRight 4.5s ease-in-out infinite alternate,
+                slideInRingRight 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-play-state: running, paused;
+        }
+
+        .ring-scene.show .ring-left { animation-play-state: running, running; }
+        .ring-scene.show .ring-right { animation-play-state: running, running; }
+
+        @keyframes floatRingLeft {
+            0%   { transform: rotateX(60deg) rotateY(30deg) rotateZ(-20deg) translateZ(50px) translateY(0); }
+            100% { transform: rotateX(55deg) rotateY(25deg) rotateZ(-15deg) translateZ(50px) translateY(-15px); }
+        }
+        @keyframes floatRingRight {
+            0%   { transform: rotateX(60deg) rotateY(-30deg) rotateZ(20deg) translateZ(50px) translateY(0); }
+            100% { transform: rotateX(55deg) rotateY(-25deg) rotateZ(15deg) translateZ(50px) translateY(15px); }
+        }
+
+        @keyframes slideInRingLeft {
+            0%   { left: -30vw; opacity: 0; }
+            10%  { opacity: 1; }
+            100% { left: calc(50% - 75px); opacity: 1; }
+        }
+        @keyframes slideInRingRight {
+            0%   { right: -30vw; opacity: 0; }
+            10%  { opacity: 1; }
+            100% { right: calc(50% - 75px); opacity: 1; }
+        }
+
+        .ring-scene.collide .ring-wrapper {
+            animation: impactShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes impactShake {
+            10%, 90% { transform: translate3d(-2px, 0, 0) scale(1.02); }
+            20%, 80% { transform: translate3d(4px, 0, 0) scale(1.02); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0) scale(1.02); }
+            40%, 60% { transform: translate3d(8px, 0, 0) scale(1.02); }
+        }
+
+        .ring-scene.collide .ring-left { animation: clashingLeft 0.6s ease-out forwards; }
+        .ring-scene.collide .ring-right { animation: clashingRight 0.6s ease-out forwards; }
+
+        @keyframes clashingLeft {
+            0%   { left: calc(50% - 75px); transform: rotateX(60deg) rotateY(30deg) rotateZ(-20deg) translateZ(50px); }
+            30%  { left: calc(50% - 45px); transform: rotateX(75deg) rotateY(45deg) rotateZ(-35deg) translateZ(80px) scale(0.95); }
+            100% { left: calc(50% - 60px); transform: rotateX(65deg) rotateY(35deg) rotateZ(-25deg) translateZ(60px); }
+        }
+        @keyframes clashingRight {
+            0%   { right: calc(50% - 75px); transform: rotateX(60deg) rotateY(-30deg) rotateZ(20deg) translateZ(50px); }
+            30%  { right: calc(50% - 45px); transform: rotateX(75deg) rotateY(-45deg) rotateZ(35deg) translateZ(80px) scale(0.95); }
+            100% { right: calc(50% - 60px); transform: rotateX(65deg) rotateY(-35deg) rotateZ(25deg) translateZ(60px); }
+        }
+
+        .collision-flash {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 20px; height: 20px;
+            background: radial-gradient(circle, #ffffff 0%, rgba(220, 220, 220, 0.5) 50%, transparent 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .ring-scene.collide .collision-flash {
+            animation: flashExpand 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes flashExpand {
+            0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            30%  { transform: translate(-50%, -50%) scale(2); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+        }
+
+        /* ============================================================
+           全屏调酒师档案页
+           ============================================================ */
+        .profile-page {
+            position: fixed;
+            inset: 0;
+            background: #fafaf7;
+            z-index: 120;
+            opacity: 0;
+            transform: scale(0.18);
+            transform-origin: 50% 50%;
+            transition: opacity 1.2s ease, transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
+            overflow: hidden;
+        }
+
+        .profile-page.show {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .profile-decor {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .decor { position: absolute; opacity: 0.25; }
+        .decor-branch-tl { top: 10px; left: 6px; width: 200px; height: 155px; }
+        .decor-branch-br { bottom: 12px; right: 6px; width: 180px; height: 144px; }
+        .decor-fireplace { bottom: 16px; left: 22px; width: 110px; height: 86px; opacity: 0.28; }
+
+        .snowflakes { position: absolute; inset: 0; }
+        .snowflake {
+            position: absolute; top: -8%; color: #1a1a1a; opacity: 0;
+            animation: snowFall linear infinite; animation-play-state: paused;
+            will-change: transform, opacity;
+        }
+        .snowflake svg { width: 100%; height: 100%; display: block; }
+
+        @keyframes snowFall {
+            0%   { transform: translate3d(0, -10vh, 0) rotate(0deg);        opacity: 0; }
+            8%   { opacity: var(--o, 0.45); }
+            92%  { opacity: var(--o, 0.45); }
+            100% { transform: translate3d(var(--drift, 24px), 110vh, 0) rotate(220deg); opacity: 0; }
+        }
+
+        .flame { transform-box: fill-box; transform-origin: center bottom; animation: flameFlicker 1.6s ease-in-out infinite alternate; animation-play-state: paused; }
+        .flame-2 { animation-delay: 0.25s; animation-duration: 1.9s; }
+        .flame-3 { animation-delay: 0.5s; animation-duration: 1.4s; }
+        @keyframes flameFlicker {
+            0%   { transform: scaleY(1)    skewX(0deg);   opacity: 0.85; }
+            50%  { transform: scaleY(1.1)  skewX(1.5deg); opacity: 1; }
+            100% { transform: scaleY(0.94) skewX(-1deg);  opacity: 0.8; }
+        }
+
+        .profile-page.decor-active .snowflake,
+        .profile-page.decor-active .flame { animation-play-state: running; }
+
+        .profile-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-blueprint-lines {
+            position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.7;
+        }
+
+        .wrapping-vines {
+            position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3;
+        }
+
+        .name-group {
+            position: absolute;
+            top: 45%; left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 24px 40px;
+            background: rgba(250, 250, 247, 0.65);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            border-radius: 2px;
+            border: 1px dashed rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            z-index: 10; text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .name-group:hover {
+            transform: translate(-50%, -50%) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        }
+
+        .profile-eyebrow { font-size: 10px; letter-spacing: 7px; color: #999; text-transform: uppercase; margin-bottom: 12px; }
+        .profile-name { font-size: 56px; font-weight: 400; letter-spacing: 12px; color: #111; font-family: 'Times New Roman', serif; margin-bottom: 6px; padding-left: 12px; }
+        .profile-name-en { font-size: 11px; letter-spacing: 8px; color: #888; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+
+        .info-box {
+            position: absolute;
+            background: rgba(230, 230, 230, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 12px 18px;
+            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            z-index: 10;
+            display: flex; flex-direction: column; gap: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.4s ease;
+        }
+
+        .info-box:hover {
+            background: #ffffff;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            z-index: 20;
+        }
+
+        .info-box-1 { top: 26%; left: 22%; transform: rotate(-2deg); border-left: 2px solid rgba(0,0,0,0.3); }
+        .info-box-2 { top: 58%; right: 24%; transform: rotate(1.5deg); border-right: 2px solid #c89f7b; }
+        .info-box-3 { top: 66%; left: 25%; transform: rotate(2deg); border-bottom: 2px solid rgba(0,0,0,0.15); }
+        
+        .info-box-1:hover { transform: translateY(-4px) scale(1.03) rotate(-2deg); }
+        .info-box-2:hover { transform: translateY(-4px) scale(1.03) rotate(1.5deg); }
+        .info-box-3:hover { transform: translateY(-4px) scale(1.03) rotate(2deg); }
+
+        .info-box .label { font-size: 9px; letter-spacing: 2px; color: #888; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+        .info-box .value { font-size: 16px; color: #1a1a1a; font-weight: 500; letter-spacing: 2px; }
+
+        .recipe-tag {
+            position: absolute;
+            font-size: 10px;
+            font-family: monospace;
+            letter-spacing: 1px;
+            color: rgba(0,0,0,0.4);
+            z-index: 4;
+            pointer-events: none;
+        }
+        .tag-1 { top: 18%; left: 15%; }
+        .tag-2 { bottom: 25%; right: 15%; }
+        .tag-3 { top: 75%; right: 30%; }
+
+        .deco-box { position: absolute; z-index: 2; }
+        .box-group-1 { top: 18%; right: 25%; width: 140px; height: 140px; }
+        .box-group-1 .box-solid { width: 100px; height: 100px; background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.08); position: absolute; top: 0; right: 0; }
+        .box-group-1 .box-dashed { width: 110px; height: 110px; border: 1px dashed rgba(0,0,0,0.2); position: absolute; top: 30px; right: 30px; }
+        .box-group-2 { bottom: 25%; right: 18%; width: 80px; height: 80px; border: 1px solid rgba(200, 159, 123, 0.5); transform: rotate(5deg); }
+        .box-group-3 { top: 30%; left: 28%; width: 50px; height: 160px; background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px); background-size: 5px 5px; opacity: 0.6; }
+
+        .quote-group {
+            position: absolute; bottom: 12%; left: 50%; transform: translateX(-50%);
+            text-align: center; z-index: 10; display: flex; flex-direction: column; align-items: center;
+        }
+        .quote-group p {
+            font-size: 18px; letter-spacing: 4px; color: #333;
+            font-family: 'Times New Roman', serif; font-style: italic; margin-bottom: 8px;
+            background: rgba(250,250,247,0.8); padding: 4px 12px; border-radius: 2px;
+        }
+        .quote-group .quote-en { font-size: 9px; letter-spacing: 3px; color: #999; font-family: 'Inter', sans-serif; text-transform: uppercase; }
+
+        /* ============================================================
+           点击继续提示
+           ============================================================ */
+        .continue-hint {
+            position: fixed; bottom: 42px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 13px; z-index: 200;
+            opacity: 0; pointer-events: none; transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 10px; letter-spacing: 7px; text-transform: uppercase; font-weight: 500;
+            padding-left: 7px; white-space: nowrap;
+        }
+        .continue-hint.show { opacity: 1; }
+        .ch-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: dotPulse 2s ease-in-out infinite; flex-shrink: 0; }
+        @keyframes dotPulse { 0%, 100% { opacity: 0.25; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.25); } }
+
+        /* ============================================================
+           折叠便签页 · 氤氲之息
+           ============================================================ */
+        .note-stage {
+            position: fixed; inset: 0; z-index: 130;
+            perspective: 2000px; perspective-origin: 50% 0%; pointer-events: none;
+        }
+
+        .note-page {
+            position: absolute; inset: 0; background: #fbfbfb;
+            transform-origin: 50% 0%; transform: rotateX(-92deg); opacity: 0;
+            transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease;
+            overflow: hidden; box-shadow: 0 50px 90px rgba(0, 0, 0, 0.18); pointer-events: none;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .note-page.open { transform: rotateX(0deg); opacity: 1; pointer-events: auto; }
+        
+        .note-page::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.01) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(0,0,0,0.01) 1px, transparent 1px);
+            background-size: 40px 40px; pointer-events: none; z-index: 0;
+        }
+
+        .note-content {
+            position: relative; z-index: 4; height: 100%; width: 100%; max-width: 1100px; margin: 0 auto;
+            padding: 40px; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(10px); 
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1.0s, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1.0s;
+        }
+
+        .note-page.open .note-content { opacity: 1; transform: translateY(0); }
+
+        .top-title {
+            text-align: center; font-family: 'Times New Roman', serif;
+            font-size: 32px; letter-spacing: 12px; color: #111;
+            margin-top: 10px; padding-left: 12px;
+            position: relative; z-index: 5;
+        }
+
+        .bg-curve {
+            position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+        }
+
+        .layout-left {
+            position: absolute; top: 8%; left: 8%; width: 280px;
+            display: flex; flex-direction: column; align-items: center; z-index: 5;
+        }
+
+        .art-bird { width: 140px; height: 90px; margin-bottom: 20px; opacity: 0.8; }
+
+        .name-outline {
+            border: 1px solid rgba(0, 0, 0, 0.2); color: #222;
+            padding: 10px 24px; font-family: 'Times New Roman', serif;
+            font-size: 22px; letter-spacing: 6px; margin-bottom: 12px;
+            text-align: center; width: 100%;
+            background: rgba(255,255,255,0.4); backdrop-filter: blur(4px);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+        }
+
+        .name-en {
+            font-size: 13px; font-family: 'Times New Roman', serif;
+            font-style: italic; color: #666; letter-spacing: 2px;
+            margin-bottom: 25px; text-align: center;
+        }
+
+        .price-design {
+            position: relative; display: flex; flex-direction: column; align-items: center;
+            margin: 10px 0 35px; padding: 10px 20px; z-index: 5;
+        }
+
+        .price-orbit {
+            position: absolute; top: 45%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            width: 150px; height: 75px; pointer-events: none; z-index: 1;
+        }
+
+        .price-number {
+            position: relative; font-family: 'Times New Roman', serif;
+            font-size: 54px; color: #111; line-height: 1; z-index: 2;
+            display: flex; align-items: flex-start; justify-content: center;
+            text-shadow: 0 2px 12px rgba(251, 251, 251, 0.9), 0 0 8px rgba(251,251,251, 1);
+        }
+
+        .price-number span { font-size: 22px; margin-top: 8px; margin-left: 2px; color: #444; }
+
+        .price-meta {
+            position: relative; z-index: 2; display: flex; align-items: center;
+            gap: 8px; font-family: monospace; font-size: 9px;
+            color: #777; letter-spacing: 2px; margin-top: 12px;
+            background: rgba(251, 251, 251, 0.85); padding: 4px 12px;
+            border-radius: 12px; backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .price-meta .sep { width: 3px; height: 3px; background: #c89f7b; border-radius: 50%; }
+
+        .ingredients-galaxy {
+            position: relative; width: 260px; height: 200px;
+            margin-top: 10px; margin-left: -10px; transform: translateY(10px);
+        }
+
+        .galaxy-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+        .orbit-path { transform-origin: 50% 50%; animation: orbitRotate 25s linear infinite; }
+        .orbit-path-2 { transform-origin: 50% 50%; animation: orbitRotate 35s linear infinite reverse; }
+
+        @keyframes orbitRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .center-bird {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 40px; height: 30px; z-index: 2;
+        }
+
+        .ingredient-item {
+            position: absolute; font-size: 10px; font-family: monospace;
+            letter-spacing: 1px; color: #555; z-index: 3;
+            display: flex; align-items: center; white-space: nowrap;
+        }
+
+        .ingredient-item::before {
+            content: ''; display: block; width: 16px; height: 1px;
+            background: rgba(0,0,0,0.3); margin-right: 6px;
+        }
+
+        .layout-right {
+            position: absolute; top: 16%; right: 8%;
+            display: flex; flex-direction: column; gap: 40px; z-index: 5;
+        }
+
+        .art-branch {
+            position: absolute; top: -80px; right: -40px;
+            width: 100px; height: 100px; opacity: 0.4;
+            z-index: -1; pointer-events: none;
+        }
+
+        .note-block {
+            position: relative; width: 280px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,0,0,0.03); border-radius: 4px;
+            padding: 30px 28px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.02);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: default; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .note-block:nth-child(1) { transform: translateX(-20px) rotate(-1deg); }
+        .note-block:nth-child(2) { transform: translateX(20px) rotate(1deg); }
+        .note-block:nth-child(3) { transform: translateX(-10px) rotate(-0.5deg); }
+
+        .note-block:hover {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 18px 40px rgba(200, 159, 123, 0.1), 0 2px 6px rgba(0,0,0,0.02);
+            transform: translateY(-5px) scale(1.02) translateX(0) rotate(0) !important;
+            z-index: 10;
+        }
+
+        .paperclip {
+            position: absolute; top: -24px; right: 24px;
+            width: 20px; height: 50px; z-index: 10;
+            filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.15));
+            transition: transform 0.4s ease;
+        }
+
+        .note-block:hover .paperclip { transform: translateY(-2px) rotate(2deg); }
+
+        .note-block::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 1px; background: radial-gradient(ellipse at center, #c89f7b 0%, transparent 70%);
+            opacity: 0.6; transition: width 0.5s ease, opacity 0.5s ease;
+        }
+
+        .note-block:hover::before { width: 80px; opacity: 1; }
+
+        .block-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; z-index: 1; }
+        .block-title { font-family: 'Times New Roman', serif; font-size: 20px; font-weight: 400; color: #111; letter-spacing: 4px; }
+        .block-en { font-family: monospace; font-size: 10px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+
+        .block-desc { display: flex; flex-direction: column; gap: 10px; width: 100%; z-index: 1; }
+        .block-desc span { font-size: 13px; color: #555; letter-spacing: 2px; font-weight: 300; text-align: center; line-height: 1.6; transition: color 0.3s ease; }
+        .note-block:hover .block-desc span { color: #222; }
+
+        .scatter-divider {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 120px; height: 200px; z-index: 5; pointer-events: none;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+        }
+
+        .scatter-dot { border-radius: 50%; }
+        .scatter-dot:nth-child(1) { width: 3px; height: 3px; background: #c89f7b; margin-left: -30px; animation: floatDot 4s ease-in-out infinite; }
+        .scatter-dot:nth-child(2) { width: 5px; height: 5px; background: rgba(0,0,0,0.15); margin-left: 20px; animation: floatDot 5s ease-in-out infinite reverse; }
+        .scatter-dot:nth-child(3) { width: 2px; height: 2px; background: #c89f7b; margin-left: -10px; animation: floatDot 3.5s ease-in-out infinite; }
+        .scatter-dot:nth-child(4) { width: 6px; height: 6px; background: rgba(0,0,0,0.08); margin-left: 40px; animation: floatDot 6s ease-in-out infinite reverse; }
+        .scatter-dot:nth-child(5) { width: 4px; height: 4px; background: #c89f7b; margin-left: -20px; opacity: 0.6; animation: floatDot 4.5s ease-in-out infinite; }
+
+        @keyframes floatDot { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .bottom-page {
+            position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%);
+            font-family: monospace; font-size: 11px; letter-spacing: 4px; color: #aaa; z-index: 5;
+        }
+
+        /* ============================================================
+           第四面：Bar 点单须知
+           ============================================================ */
+        .rules-stage {
+            position: fixed; inset: 0; z-index: 140;
+            background: #fbfbfb;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        .rules-stage.show { opacity: 1; pointer-events: auto; }
+
+        .rules-stage::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 24px 24px; pointer-events: none; z-index: 0;
+        }
+
+        .rules-decor {
+            position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
+            transition: transform 0.2s ease-out;
+        }
+
+        .deco-item { position: absolute; opacity: 0.15; color: #1a1a1a; }
+        .deco-shaker { top: 15%; left: 10%; width: 50px; height: 80px; }
+        .deco-martini { bottom: 15%; right: 12%; width: 100px; height: 120px; opacity: 0.08; }
+        .deco-jigger { top: 60%; left: 18%; width: 30px; height: 45px; }
+        .deco-ice { top: 25%; right: 22%; width: 40px; height: 40px; transform: rotate(15deg); }
+        .deco-scale {
+            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 20px;
+            background-image: repeating-linear-gradient(90deg, #1a1a1a 0, #1a1a1a 1px, transparent 1px, transparent 10px);
+            opacity: 0.1;
+        }
+        .deco-bubbles {
+            position: absolute; top: 40%; left: 30%; width: 6px; height: 6px;
+            background: #c89f7b; border-radius: 50%; opacity: 0.4;
+            box-shadow: 20px -30px 0 -2px rgba(200,159,123,0.6), -15px 40px 0 -1px rgba(0,0,0,0.2), 40px 10px 0 -3px rgba(0,0,0,0.1);
+        }
+
+        .rules-cards-wrapper {
+            position: relative; z-index: 2;
+            width: 90%; max-width: 620px;
+            perspective: 1200px;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .rules-card-bg {
+            position: absolute; inset: 0; border-radius: 12px;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+            pointer-events: none;
+        }
+
+        .layer-1 { background: rgba(240, 240, 235, 0.4); transform: rotate(-3deg) translateY(12px); z-index: 1; box-shadow: 0 15px 30px rgba(0,0,0,0.02); }
+        .layer-2 { background: rgba(248, 248, 245, 0.5); transform: rotate(2deg) translateY(6px); z-index: 2; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
+
+        .rules-card {
+            position: relative; z-index: 3;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+            padding: 50px 60px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.04), 0 0 0 1px rgba(255,255,255,0.8) inset;
+            transform: rotate(-0.5deg);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        .rules-cards-wrapper:hover .rules-card { transform: rotate(0deg) translateY(-5px); box-shadow: 0 40px 70px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,0.8) inset; }
+        .rules-cards-wrapper:hover .layer-1 { transform: rotate(-5deg) translateX(-10px) translateY(18px); }
+        .rules-cards-wrapper:hover .layer-2 { transform: rotate(3.5deg) translateX(10px) translateY(10px); }
+
+        .rules-card::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.7), transparent 80%);
+            opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 10; mix-blend-mode: overlay;
+        }
+        .rules-card:hover::after { opacity: 1; }
+
+        .rules-card .paperclip { top: -26px; right: 40px; width: 22px; height: 56px; z-index: 15; }
+        .rules-header { text-align: center; margin-bottom: 36px; position: relative; z-index: 2; }
+        .rules-title { font-family: 'Times New Roman', serif; font-size: 28px; color: #111; letter-spacing: 8px; margin-bottom: 8px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .rules-title span { color: #c89f7b; font-size: 18px; }
+        .rules-subtitle { font-family: monospace; font-size: 10px; color: #999; letter-spacing: 4px; text-transform: uppercase; }
+        .rules-header::after { content: ''; display: block; width: 40px; height: 1px; background: rgba(0,0,0,0.15); margin: 20px auto 0; }
+
+        .rules-list { display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2; }
+        .rule-item { display: flex; align-items: flex-start; gap: 16px; padding: 12px 16px; border-radius: 6px; border-bottom: 1px dashed rgba(0,0,0,0.06); transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1); position: relative; }
+        .rule-item:last-child { border-bottom: none; }
+        .rule-item:hover { background: rgba(255, 255, 255, 0.6); transform: translateX(6px); border-bottom-color: transparent; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .rule-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 2px; height: 0; background: #c89f7b; transition: height 0.3s ease; border-radius: 2px; }
+        .rule-item:hover::before { height: 60%; }
+        .rule-num { font-family: monospace; font-size: 11px; color: #aaa; margin-top: 4px; flex-shrink: 0; transition: color 0.3s ease; }
+        .rule-item:hover .rule-num { color: #c89f7b; }
+        .rule-text { font-size: 14px; color: #333; line-height: 1.8; letter-spacing: 1px; font-weight: 400; text-align: justify; transition: color 0.3s ease; }
+        .rule-item:hover .rule-text { color: #000; }
+        .rule-text strong { color: #111; font-weight: 500; }
+
+        .rules-footer { margin-top: 40px; display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-size: 9px; color: #aaa; letter-spacing: 2px; position: relative; z-index: 2; }
+        .rules-footer .ft-mark { color: #c89f7b; font-weight: 500; }
+
+        .stamp { position: absolute; bottom: -20px; right: -20px; width: 90px; height: 90px; border: 2px solid rgba(0,0,0,0.08); border-radius: 50%; display: flex; justify-content: center; align-items: center; transform: rotate(-15deg) scale(0.9); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; z-index: 5; }
+        .rules-cards-wrapper:hover .stamp { transform: rotate(-10deg) scale(1); border-color: rgba(200, 159, 123, 0.3); }
+        .stamp::before { content: ''; position: absolute; inset: 4px; border: 1px dashed rgba(0,0,0,0.1); border-radius: 50%; }
+        .stamp-text { font-family: 'Times New Roman', serif; font-size: 12px; font-weight: bold; letter-spacing: 2px; color: rgba(0,0,0,0.2); text-align: center; line-height: 1.4; transition: color 0.4s ease; }
+        .rules-cards-wrapper:hover .stamp-text { color: rgba(200, 159, 123, 0.6); }
+
+        /* ============================================================
+           第四面：确认下单便签 (仅保留确认)
+           ============================================================ */
+        .confirm-stage {
+            position: fixed; inset: 0; z-index: 150;
+            background: rgba(250, 250, 247, 0.6);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+        .confirm-stage.show { opacity: 1; pointer-events: auto; }
+
+        .confirm-paper {
+            position: relative;
+            width: 320px; height: 320px;
+            background-color: #f2f2ef;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.03) inset;
+            transform: translateX(100vw) rotate(8deg);
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        
+        .confirm-stage.show .confirm-paper {
+            transform: translateX(0) rotate(-2deg);
+        }
+
+        .confirm-paper::before {
+            content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg);
+            width: 80px; height: 24px; background: rgba(255,255,255,0.6);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .handwriting-title {
+            font-family: 'Songti SC', 'STSong', 'Noto Serif SC', serif;
+            font-weight: 300;
+            font-size: 42px; color: #222;
+            margin-bottom: 50px; letter-spacing: 6px;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+        }
+
+        .confirm-options {
+            display: flex; justify-content: center; position: relative;
+            padding: 10px 30px; cursor: pointer;
+        }
+
+        .option-btn {
+            font-family: 'Songti SC', 'STSong', 'Noto Serif SC', serif;
+            font-weight: 400;
+            font-size: 26px; color: #444;
+            letter-spacing: 4px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        .option-btn:hover { color: #c89f7b; transform: scale(1.05); }
+
+        .gold-circle {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-3deg);
+            width: 160px; height: 80px;
+            pointer-events: none; z-index: 1;
+        }
+        .gold-circle path {
+            stroke: #d4a373; stroke-width: 2.5;
+            fill: none; stroke-linecap: round; stroke-linejoin: round;
+            stroke-dasharray: 500; stroke-dashoffset: 500;
+            transition: stroke-dashoffset 0.8s ease-in-out 0.6s;
+        }
+        .confirm-stage.show .gold-circle path {
+            stroke-dashoffset: 0;
+        }
+
+        /* ============================================================
+           第五面：酒单小票
+           ============================================================ */
+        .receipt-stage {
+            position: fixed; inset: 0; z-index: 160;
+            background: #fbfbfb;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1s ease;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .receipt-stage.show { opacity: 1; pointer-events: auto; }
+
+        .receipt-paper {
+            position: relative;
+            width: 340px; padding: 40px 30px 60px;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
+            transform: translateX(-150vw) rotate(-20deg) scale(0.8);
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            font-family: 'Courier New', monospace;
+            color: #111;
+        }
+
+        .receipt-stage.show .receipt-paper {
+            transform: translateX(0) rotate(-1deg) scale(1);
+        }
+
+        .r-header { text-align: center; margin-bottom: 20px; }
+        .r-title { 
+            font-family: 'Times New Roman', serif; font-size: 20px; font-weight: bold; 
+            border: 1.5px solid #000; border-radius: 20px; padding: 4px 20px; 
+            width: fit-content; margin: 0 auto 15px; letter-spacing: 1px;
+        }
+        .r-sub { font-size: 10px; text-align: left; font-style: italic; line-height: 1.4; color: #333; }
+        
+        .r-divider { border-bottom: 1px dashed #000; margin: 12px 0; }
+
+        .r-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; align-items: baseline; }
+        .r-row.header { font-weight: bold; font-size: 10px; margin-bottom: 8px; }
+        .r-row span:nth-child(1) { width: 30px; flex-shrink: 0; }
+        .r-row span:nth-child(2) { flex: 1; padding-right: 10px; }
+        .r-row span:nth-child(3) { width: 60px; text-align: right; flex-shrink: 0; }
+        
+        .r-row.header span:nth-child(1) { width: auto; }
+        .r-row.header span:nth-child(2) { flex: 1; text-align: center; }
+        .r-row.header span:nth-child(3) { text-align: right; }
+
+        .r-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 8px 0; margin-top: 15px; }
+
+        .r-barcode { 
+            width: 80%; 
+            margin: 30px auto 0; 
+            height: 50px; 
+            background: repeating-linear-gradient(90deg, #000, #000 2px, #fff 2px, #fff 4px, #000 4px, #000 5px, #fff 5px, #fff 9px); 
+        }
+        
+        .r-footer { text-align: center; font-size: 12px; margin-top: 10px; font-family: 'Times New Roman', serif; font-weight: bold; }
+
+        /* --- 图片签名，带裁剪动画 --- */
+        .signature-img-container {
+            position: absolute; bottom: -20px; right: 5px;
+            width: 220px; height: auto;
+            pointer-events: none;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 2.5s cubic-bezier(0.22, 1, 0.36, 1) 1.2s;
+        }
+
+        .receipt-stage.show .signature-img-container {
+            clip-path: inset(0 0 0 0);
+        }
+
+        .signature-img {
+            width: 100%;
+            display: block;
+            transform: rotate(-5deg);
+            mix-blend-mode: multiply;
+        }
+
+        /* ============================================================
+           第六面：撕裂动画
+           ============================================================ */
+        .tear-stage {
+            position: fixed; inset: 0; z-index: 170;
+            pointer-events: none;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 1000px;
+            opacity: 0;
+            background: #fbfbfb;
+            transition: opacity 1.2s ease;
+        }
+        
+        .tear-stage.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .tear-paper-top, .tear-paper-bottom {
+            position: absolute;
+            width: 340px; padding: 40px 30px 60px;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
+            font-family: 'Courier New', monospace;
+            color: #111;
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s ease;
+            overflow: hidden;
+        }
+
+        .tear-paper-top { clip-path: polygon(0 0, 100% 0, 100% 50%, 95% 52%, 90% 48%, 85% 53%, 80% 49%, 75% 52%, 70% 48%, 65% 51%, 60% 47%, 55% 53%, 50% 50%, 45% 54%, 40% 48%, 35% 52%, 30% 49%, 25% 53%, 20% 50%, 15% 51%, 10% 47%, 5% 52%, 0 50%); }
+        .tear-paper-bottom { clip-path: polygon(0 50%, 5% 52%, 10% 47%, 15% 51%, 20% 50%, 25% 53%, 30% 49%, 35% 52%, 40% 48%, 45% 54%, 50% 50%, 55% 53%, 60% 47%, 65% 51%, 70% 48%, 75% 52%, 80% 49%, 85% 53%, 90% 48%, 95% 52%, 100% 50%, 100% 100%, 0 100%); }
+
+        .tear-stage.show .tear-paper-top {
+            animation: tearLeft 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.2s;
+        }
+        .tear-stage.show .tear-paper-bottom {
+            animation: tearRight 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.2s;
+        }
+
+        @keyframes tearLeft {
+            0% { transform: translateY(0) translateX(0) rotateX(0deg) rotateZ(0); opacity: 1; }
+            100% { transform: translateX(-100vw) translateY(-10vh) rotateX(20deg) rotateZ(-15deg); opacity: 0; }
+        }
+
+        @keyframes tearRight {
+            0% { transform: translateY(0) translateX(0) rotateX(0deg) rotateZ(0); opacity: 1; }
+            100% { transform: translateX(100vw) translateY(10vh) rotateX(-20deg) rotateZ(15deg); opacity: 0; }
+        }
+
+        /* ============================================================
+           第七面：碰杯与字幕
+           ============================================================ */
+        .cheers-stage {
+            position: fixed; inset: 0; z-index: 180;
+            background: #fbfbfb;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1s ease;
+            overflow: hidden;
+        }
+
+        .cheers-stage.show {
+            opacity: 1; pointer-events: auto;
+        }
+
+        /* S型细线 */
+        .s-curve-line {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 400px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .s-path {
+            stroke: #dcdcdc;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+
+        .cheers-stage.show .s-path {
+            animation: drawSLine 3s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+        }
+
+        @keyframes drawSLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* 碰杯容器 */
+        .cheers-wrap {
+            position: relative;
+            width: 400px; height: 300px;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2;
+        }
+
+        /* 高脚杯容器 */
+        .cheers-glass {
+            position: absolute;
+            width: 80px; height: 160px;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        }
+
+        .cheers-glass-left {
+            left: -200vw;
+            transform: rotate(-15deg);
+            animation: slideInCheerLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+        }
+
+        .cheers-glass-right {
+            right: -200vw;
+            transform: rotate(15deg);
+            animation: slideInCheerRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+        }
+
+        .cheers-stage.clink .cheers-glass-left {
+            animation: slideInCheerLeft 0.8s forwards 0.5s, clinkShakeLeft 0.4s ease-out 1.3s;
+        }
+        .cheers-stage.clink .cheers-glass-right {
+            animation: slideInCheerRight 0.8s forwards 0.5s, clinkShakeRight 0.4s ease-out 1.3s;
+        }
+
+        @keyframes slideInCheerLeft {
+            0% { left: -200vw; }
+            100% { left: calc(50% - 55px); }
+        }
+        @keyframes slideInCheerRight {
+            0% { right: -200vw; }
+            100% { right: calc(50% - 55px); }
+        }
+
+        @keyframes clinkShakeLeft {
+            0% { transform: rotate(-15deg) translateX(0); }
+            30% { transform: rotate(-25deg) translateX(-15px); }
+            60% { transform: rotate(-10deg) translateX(-5px); }
+            100% { transform: rotate(-15deg) translateX(0); }
+        }
+        @keyframes clinkShakeRight {
+            0% { transform: rotate(15deg) translateX(0); }
+            30% { transform: rotate(25deg) translateX(15px); }
+            60% { transform: rotate(10deg) translateX(5px); }
+            100% { transform: rotate(15deg) translateX(0); }
+        }
+
+        /* 高脚杯造型 */
+        .h-bowl {
+            position: relative;
+            width: 70px; height: 60px;
+            border: 1.5px solid rgba(26, 26, 26, 0.5);
+            border-radius: 0 0 35px 35px;
+            background: transparent;
+            overflow: hidden;
+        }
+        .h-bowl::before {
+            content: '';
+            position: absolute;
+            top: -4px; left: 50%;
+            transform: translateX(-50%);
+            width: 70px; height: 8px;
+            border: 1.5px solid rgba(26, 26, 26, 0.6);
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        .h-stem {
+            width: 2px; height: 60px;
+            background: rgba(26, 26, 26, 0.4);
+        }
+        
+        .h-base {
+            width: 40px; height: 4px;
+            border: 1.5px solid rgba(26, 26, 26, 0.5);
+            border-radius: 4px;
+        }
+
+        /* 红色酒液 (永久贴合曲线，只变高度) */
+        .c-liquid {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 40px;
+            background: #b82e34;
+            transition: all 0.3s ease;
+            z-index: 1;
+            border-radius: 0 0 35px 35px;
+        }
+
+        /* 碰撞瞬间仅增加高度，不再 skewY，避免边缘不贴合 */
+        .cheers-stage.clink .cheers-glass-left .c-liquid {
+            height: 45px;
+        }
+        .cheers-stage.clink .cheers-glass-right .c-liquid {
+            height: 45px;
+        }
+
+        /* 飞溅的酒滴 */
+        .splash {
+            position: absolute;
+            width: 5px; height: 5px;
+            background: #b82e34;
+            border-radius: 50%;
+            top: 25px; left: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .cheers-stage.clink .splash-1 { animation: splash1 0.8s ease-out 1.3s; }
+        .cheers-stage.clink .splash-2 { animation: splash2 0.9s ease-out 1.3s; }
+        .cheers-stage.clink .splash-3 { animation: splash3 0.7s ease-out 1.3s; }
+        .cheers-stage.clink .splash-4 { animation: splash4 0.85s ease-out 1.3s; }
+        .cheers-stage.clink .splash-5 { animation: splash5 0.75s ease-out 1.3s; }
+
+        @keyframes splash1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(-45px, -60px) scale(0.4); opacity: 0; }
+        }
+        @keyframes splash2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(45px, -60px) scale(0.4); opacity: 0; }
+        }
+        @keyframes splash3 {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(-20px, -80px) scale(0.3); opacity: 0; }
+        }
+        @keyframes splash4 {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(20px, -80px) scale(0.3); opacity: 0; }
+        }
+        @keyframes splash5 {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(0, -90px) scale(0.5); opacity: 0; }
+        }
+
+        /* 碰撞白光 */
+        .clink-flash {
+            position: absolute;
+            top: 30px; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 20px; height: 20px;
+            background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cheers-stage.clink .clink-flash {
+            animation: flashPop 0.5s ease-out 1.3s;
+        }
+
+        @keyframes flashPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+        }
+
+        /* ============================================================
+           字幕 (普通宋体横排)
+           ============================================================ */
+        .cheers-text-wrap {
+            margin-top: 60px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease, filter 1.5s ease;
+            filter: blur(5px);
+            z-index: 2;
+        }
+
+        .cheers-stage.show .cheers-text-wrap {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+            transition-delay: 2s;
+        }
+
+        .cheers-title {
+            font-family: "SimSun", "Songti SC", "STSong", serif;
+            font-size: 32px; font-weight: 400;
+            color: #111; 
+            letter-spacing: 8px;
+            margin-bottom: 12px;
+        }
+
+        .cheers-subtitle {
+            font-family: "SimSun", "Songti SC", "STSong", serif;
+            font-size: 16px; color: #777;
+            letter-spacing: 2px;
+        }
+
+        /* ============ 响应式 ============ */
+        @media (max-width: 900px) {
+            .profile-page { padding: 20px; }
+            .name-group { top: 35%; padding: 16px 24px; }
+            .profile-name { font-size: 40px; letter-spacing: 8px; }
+            
+            .info-box-1 { top: 15%; left: 10%; transform: rotate(0); }
+            .info-box-2 { top: 55%; right: 10%; transform: rotate(0); }
+            .info-box-3 { bottom: 15%; left: 10%; top: auto; transform: rotate(0); }
+            .info-box .value { font-size: 14px; }
+            
+            .info-box-1:hover { transform: translateY(-4px) scale(1.03); }
+            .info-box-2:hover { transform: translateY(-4px) scale(1.03); }
+            .info-box-3:hover { transform: translateY(-4px) scale(1.03); }
+            
+            .quote-group { bottom: 10%; width: 100%; }
+            .quote-group p { font-size: 15px; }
+            
+            .box-group-1, .box-group-3, .recipe-tag { display: none; }
+            .box-group-2 { bottom: 30%; right: 10%; width: 40px; height: 40px; }
+            .wrapping-vines { opacity: 0.4; }
+            
+            .ring { width: 100px; height: 100px; }
+            @keyframes slideInRingLeft { 100% { left: calc(50% - 55px); } }
+            @keyframes slideInRingRight { 100% { right: calc(50% - 55px); } }
+            
+            @keyframes clashingLeft {
+                0%   { left: calc(50% - 55px); transform: rotateX(60deg) rotateY(30deg) rotateZ(-20deg) translateZ(50px); }
+                30%  { left: calc(50% - 30px); transform: rotateX(75deg) rotateY(45deg) rotateZ(-35deg) translateZ(80px) scale(0.95); }
+                100% { left: calc(50% - 40px); transform: rotateX(65deg) rotateY(35deg) rotateZ(-25deg) translateZ(60px); }
+            }
+            @keyframes clashingRight {
+                0%   { right: calc(50% - 55px); transform: rotateX(60deg) rotateY(-30deg) rotateZ(20deg) translateZ(50px); }
+                30%  { right: calc(50% - 30px); transform: rotateX(75deg) rotateY(-45deg) rotateZ(35deg) translateZ(80px) scale(0.95); }
+                100% { right: calc(50% - 40px); transform: rotateX(65deg) rotateY(-35deg) rotateZ(25deg) translateZ(60px); }
+            }
+
+            .note-content { padding: 30px 20px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
+            .top-title { font-size: 24px; margin-bottom: 30px; }
+            .bg-curve, .art-branch, .scatter-divider { display: none; }
+            
+            .layout-left, .layout-right { position: relative; top: auto; left: auto; right: auto; width: 100%; max-width: 340px; margin-bottom: 30px; }
+            
+            .layout-left { flex-direction: column; align-items: center; }
+            .art-bird { width: 100px; height: 60px; margin-bottom: 10px; }
+            .name-outline { width: auto; padding: 6px 16px; font-size: 18px; margin-bottom: 6px; }
+            .name-en { margin-bottom: 10px; }
+            
+            .price-design { margin: 5px 0 20px; }
+            .price-number { font-size: 44px; }
+            .price-orbit { width: 130px; height: 65px; }
+            
+            .ingredients-galaxy { width: 100%; height: auto; transform: none; margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .galaxy-svg, .center-bird { display: none; }
+            .ingredient-item { position: relative; top: auto; left: auto; right: auto; bottom: auto; padding: 4px 8px; border: 1px dashed rgba(0,0,0,0.1); border-radius: 4px; flex-direction: row !important; }
+            .ingredient-item::before { display: none !important; }
+            
+            .layout-right { gap: 20px; }
+            .note-block { width: 100%; padding: 20px; transform: none !important; border-radius: 4px; }
+            .note-block:hover { transform: translateY(-2px) !important; }
+            .paperclip { top: -16px; right: 16px; width: 16px; height: 40px; }
+            
+            .bottom-page { position: relative; margin-top: 20px; bottom: auto; }
+
+            .rules-cards-wrapper { width: 92%; margin-top: 20px; margin-bottom: 20px; }
+            .rules-card { padding: 30px 20px; border-radius: 8px; transform: rotate(-0.5deg) !important; }
+            .rules-card-bg { display: none; }
+            .rules-card .paperclip { top: -16px; right: 20px; width: 16px; height: 40px; }
+            .rules-title { font-size: 22px; letter-spacing: 4px; }
+            .rules-title span { font-size: 14px; }
+            .rule-item { gap: 10px; padding: 10px 0; padding-bottom: 12px; }
+            .rule-item:hover { transform: none; background: transparent; box-shadow: none; }
+            .rule-item:hover::before { height: 0; }
+            .rule-num { font-size: 10px; }
+            .rule-text { font-size: 13px; line-height: 1.7; letter-spacing: 0.5px; }
+            .rules-decor { display: none; }
+            .stamp { transform: scale(0.7) rotate(-15deg); bottom: -15px; right: -15px; }
+            
+            .confirm-paper { width: 280px; height: 300px; }
+            .handwriting-title { font-size: 38px; }
+            .receipt-paper { width: 300px; padding: 30px 20px 50px; }
+            
+            .signature-img-container { width: 180px; right: 0; bottom: -10px; }
+            
+            .tear-paper-top, .tear-paper-bottom { width: 300px; padding: 30px 20px 50px; }
+            
+            .cheers-wrap { transform: scale(0.8); }
+            .s-curve-line { width: 400px; height: 300px; }
+            .cheers-title { font-size: 24px; }
+            .cheers-subtitle { font-size: 14px; }
+        }
+
+        @media (max-width: 600px) {
+            .menu-card { width: 280px; min-height: 380px; padding: 30px 20px; }
+            .menu-title { font-size: 36px; }
+            .welcome-text { font-size: 17px; }
+            .welcome-text span { font-size: 20px; }
+
+            .decor-branch-tl { width: 150px; height: 116px; opacity: 0.2; }
+            .decor-branch-br { width: 136px; height: 109px; opacity: 0.2; }
+            .decor-fireplace { width: 88px; height: 69px; opacity: 0.22; }
+
+            .continue-hint { bottom: 28px; font-size: 9px; letter-spacing: 4px; padding-left: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas">
+        <!-- 飞鸟 -->
+        <svg class="bird" viewBox="0 0 100 50" fill="#1a1a1a" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10,25 Q30,5 50,20 Q65,30 85,18 Q70,35 50,38 Q30,40 10,25 Z" opacity="0.8"/>
+            <path d="M25,22 Q35,12 45,20" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+            <circle cx="78" cy="20" r="1.5" fill="#1a1a1a" />
+        </svg>
+        <svg class="bird" viewBox="0 0 100 50" fill="#1a1a1a" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12,25 Q32,8 52,22 Q67,32 88,20 Q72,36 50,39 Q30,41 12,25 Z" opacity="0.8"/>
+        </svg>
+        <svg class="bird" viewBox="0 0 100 50" fill="#1a1a1a" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15,28 Q35,12 55,24 Q70,34 90,22 Q74,38 52,40 Q32,42 15,28 Z" opacity="0.8"/>
+        </svg>
+
+        <!-- 酒杯与兰花 -->
+        <div class="glass-container" id="glassContainer">
+            <div class="glass" id="glassEl">
+                <div class="glass-bowl"></div>
+                <div class="glass-stem"></div>
+                <div class="glass-base"></div>
+                <div class="pour-stream"></div>
+                <div class="liquid"></div>
+            </div>
+            <div class="orchid" id="orchid">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 20 Q60 30 55 45 Q70 35 80 30 Q70 45 60 50 Q75 55 80 70 Q65 60 55 55 Q60 70 50 85 Q40 70 45 55 Q35 65 20 70 Q30 55 40 50 Q25 45 20 30 Q35 40 45 45 Q40 30 50 20 Z"
+                          stroke="#D4A373" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="52" r="4" stroke="#E6C4A6" stroke-width="1.5" fill="none"/>
+                    <path d="M50 48 L50 44 M50 56 L50 60 M46 52 L42 52 M54 52 L58 52" stroke="#E6C4A6" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 磨砂提示框 -->
+        <div class="prompt-box" id="promptBox">
+            <div class="prompt-label">请输入昵称</div>
+            <input type="text" id="nicknameInput" class="nickname-input" placeholder="Enter your name" autocomplete="off" spellcheck="false">
+        </div>
+
+        <!-- 酒单卡片 -->
+        <div class="menu-card" id="menuCard">
+            <div class="menu-title">冬</div>
+            <div class="welcome-text" id="welcomeMessage">
+                欢迎你，<span id="displayName">xxx</span>
+            </div>
+            <div class="sub-line">Мир, серый.</div>
+        </div>
+    </div>
+
+    <!-- 雾态转场层 -->
+    <div class="mist" id="mist"></div>
+
+    <!-- 银环素戒相撞场景 -->
+    <div class="ring-scene" id="ringScene">
+        <div class="ring-wrapper">
+            <div class="ring ring-left"></div>
+            <div class="ring ring-right"></div>
+            <div class="collision-flash"></div>
+        </div>
+    </div>
+
+    <!-- 全屏调酒师档案页 -->
+    <div class="profile-page" id="profilePage">
+        <div class="profile-decor" aria-hidden="true">
+            <div class="snowflakes" id="snowflakes"></div>
+            <svg class="decor decor-branch-tl" viewBox="0 0 220 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 10 Q46 34 78 58 Q112 82 158 98" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M52 38 Q64 26 82 30" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M58 42 Q66 54 78 56" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M96 68 Q108 56 124 58" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M104 74 Q112 86 126 88" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M140 90 Q150 80 162 82" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+                <g transform="translate(124 46) rotate(-8)">
+                    <path d="M0 12 Q10 2 20 10 Q26 4 36 10" stroke="#1a1a1a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+                    <circle cx="30" cy="6" r="1.4" fill="#1a1a1a"/>
+                </g>
+                <g transform="translate(162 70) rotate(-6) scale(0.8)">
+                    <path d="M0 12 Q10 2 20 10 Q26 4 36 10" stroke="#1a1a1a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+                    <circle cx="30" cy="6" r="1.4" fill="#1a1a1a"/>
+                </g>
+            </svg>
+
+            <svg class="decor decor-branch-br" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M196 150 Q160 130 132 108 Q100 84 60 66" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M150 122 Q146 108 132 104" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M146 118 Q134 128 120 126" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M110 94 Q102 80 88 78" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M100 86 Q88 94 74 90" stroke="#1a1a1a" stroke-width="0.8" stroke-linecap="round"/>
+            </svg>
+
+            <svg class="decor decor-fireplace" viewBox="0 0 140 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 100 L18 34 L122 34 L122 100" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M8 34 L132 34" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M8 100 L132 100" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M8 34 L8 100" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M132 34 L132 100" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
+                <line x1="46" y1="96" x2="94" y2="96" stroke="#1a1a1a" stroke-width="1.1" stroke-linecap="round"/>
+                <line x1="52" y1="92" x2="88" y2="92" stroke="#1a1a1a" stroke-width="0.9" stroke-linecap="round"/>
+                <path class="flame flame-1" d="M70 92 Q63 76 70 60 Q77 76 70 92 Z" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+                <path class="flame flame-2" d="M58 92 Q53 80 58 68 Q63 80 58 92 Z" stroke="#1a1a1a" stroke-width="0.9" fill="none"/>
+                <path class="flame flame-3" d="M82 92 Q77 80 82 68 Q87 80 82 92 Z" stroke="#1a1a1a" stroke-width="0.9" fill="none"/>
+            </svg>
+        </div>
+
+        <div class="profile-inner">
+            <svg class="bg-blueprint-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                <line x1="100" y1="0" x2="800" y2="1000" stroke="#dcdcdc" stroke-width="1" stroke-dasharray="4 6" />
+                <line x1="0" y1="300" x2="1000" y2="700" stroke="#dcdcdc" stroke-width="1" stroke-dasharray="4 6" />
+                <line x1="800" y1="0" x2="200" y2="1000" stroke="#dcdcdc" stroke-width="1" stroke-dasharray="2 8" />
+                <circle cx="500" cy="450" r="200" stroke="#e5e5e5" stroke-width="1" fill="none" stroke-dasharray="10 10" />
+                <g transform="translate(300, 300) scale(1.5)" opacity="0.15" stroke="#000" stroke-width="1.5" fill="none">
+                    <path d="M-40 0 L40 0 L0 60 Z" />
+                    <line x1="0" y1="60" x2="0" y2="120" />
+                    <line x1="-20" y1="120" x2="20" y2="120" />
+                    <circle cx="0" cy="15" r="5" />
+                    <path d="M20 -5 Q30 10 25 20" stroke-dasharray="2 2" stroke-width="1"/>
+                </g>
+            </svg>
+
+            <svg class="wrapping-vines" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                <path d="M 100 800 L 400 600 L 800 300" stroke="#C89F7B" stroke-width="1.5" fill="none" stroke-dasharray="8 6" opacity="0.6"/>
+                <path d="M 200 200 L 500 500 L 900 850" stroke="#a3b1c6" stroke-width="1" fill="none" stroke-dasharray="4 8" opacity="0.5"/>
+            </svg>
+
+            <div class="recipe-tag tag-1">RECIPE No.01</div>
+            <div class="recipe-tag tag-2">TASTING NOTES</div>
+            <div class="recipe-tag tag-3">ABV 18%</div>
+
+            <div class="deco-box box-group-1">
+                <div class="box-solid"></div>
+                <div class="box-dashed"></div>
+            </div>
+            <div class="deco-box box-group-2"></div>
+            <div class="deco-box box-group-3"></div>
+
+            <div class="name-group">
+                <div class="profile-eyebrow">BARTENDER PROFILE</div>
+                <div class="profile-name">方休</div>
+                <div class="profile-name-en">FANG XIU</div>
+            </div>
+
+            <div class="info-box info-box-1">
+                <span class="label">GENDER / AGE</span>
+                <span class="value">女 / 20</span>
+            </div>
+            
+            <div class="info-box info-box-2">
+                <span class="label">PERSONALITY</span>
+                <span class="value">INFJ / 天秤</span>
+            </div>
+
+            <div class="info-box info-box-3">
+                <span class="label">ORIENTATION</span>
+                <span class="value">泛</span>
+            </div>
+
+            <div class="quote-group">
+                <p>人生蛮荒，再见，在哪见</p>
+                <span class="quote-en">can't bear the lightness of being</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 折叠便签 · 氤氲之息 -->
+    <div class="note-stage" id="noteStage">
+        <div class="note-page" id="notePage">
+            <div class="note-content" id="noteContent">
+                <div class="top-title">氤 氲 之 息</div>
+
+                <svg class="bg-curve" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice">
+                    <path d="M 250,150 C 500,100 800,200 800,400 C 800,600 500,650 300,700" stroke="rgba(0,0,0,0.03)" stroke-width="3" fill="none" filter="blur(2px)" />
+                    <path d="M 250,150 C 500,100 800,200 800,400 C 800,600 500,650 300,700" stroke="rgba(0,0,0,0.08)" stroke-width="1" fill="none" />
+                </svg>
+
+                <div class="scatter-divider">
+                    <div class="scatter-dot"></div>
+                    <div class="scatter-dot"></div>
+                    <div class="scatter-dot"></div>
+                    <div class="scatter-dot"></div>
+                    <div class="scatter-dot"></div>
+                </div>
+
+                <div class="layout-left">
+                    <div class="art-bird">
+                        <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 10,30 Q 30,10 50,25 Q 70,10 90,30 Q 70,40 50,35 Q 30,40 10,30 Z" stroke="#222" stroke-width="1.5"/>
+                            <path d="M 40,22 L 45,15 M 60,22 L 55,15" stroke="#222" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="50" cy="28" r="1.5" fill="#222"/>
+                            <path d="M 20,45 Q 40,50 60,45" stroke="#999" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 2"/>
+                        </svg>
+                    </div>
+
+                    <div class="name-outline">氤氲之息</div>
+                    <div class="name-en">Breath of Mist</div>
+
+                    <div class="price-design">
+                        <svg class="price-orbit" viewBox="0 0 140 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="70" cy="35" rx="65" ry="26" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" />
+                            <ellipse cx="70" cy="35" rx="56" ry="20" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 4" />
+                            <line x1="2" y1="35" x2="8" y2="35" stroke="rgba(0,0,0,0.3)" stroke-width="1" />
+                            <line x1="132" y1="35" x2="138" y2="35" stroke="rgba(0,0,0,0.3)" stroke-width="1" />
+                            <path d="M 115 12 L 115 18 M 112 15 L 118 15" stroke="#c89f7b" stroke-width="1" stroke-linecap="round"/>
+                            <path d="M 25 56 L 25 60 M 23 58 L 27 58" stroke="#c89f7b" stroke-width="0.8" stroke-linecap="round"/>
+                        </svg>
+                        <div class="price-number">48<span>¥</span></div>
+                        <div class="price-meta">
+                            <span>PRICE</span>
+                            <span class="sep"></span>
+                            <span>ABV 40%</span>
+                        </div>
+                    </div>
+
+                    <div class="ingredients-galaxy">
+                        <svg class="galaxy-svg" viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse class="orbit-path" cx="130" cy="100" rx="100" ry="35" transform="rotate(-15 130 100)" stroke="#999" stroke-width="1" stroke-dasharray="2 4" />
+                            <ellipse class="orbit-path-2" cx="130" cy="100" rx="70" ry="20" transform="rotate(-15 130 100)" stroke="#ccc" stroke-width="0.8" />
+                            
+                            <line x1="130" y1="20" x2="130" y2="180" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+                            <line x1="20" y1="100" x2="240" y2="100" stroke="rgba(0,0,0,0.05)" stroke-width="1" stroke-dasharray="4 4"/>
+                            
+                            <g transform="translate(115, 85) scale(0.3)">
+                                <path d="M10,25 Q30,5 50,20 Q65,30 85,18 Q70,35 50,38 Q30,40 10,25 Z" fill="#111" />
+                            </g>
+                            
+                            <line x1="35" y1="65" x2="35" y2="75" stroke="#666" stroke-width="1" />
+                            <line x1="220" y1="60" x2="210" y2="70" stroke="#666" stroke-width="1" />
+                            <line x1="45" y1="140" x2="55" y2="130" stroke="#666" stroke-width="1" />
+                            <line x1="215" y1="140" x2="205" y2="130" stroke="#666" stroke-width="1" />
+                            <line x1="115" y1="35" x2="115" y2="45" stroke="#666" stroke-width="1" />
+                            <line x1="145" y1="165" x2="145" y2="155" stroke="#666" stroke-width="1" />
+                        </svg>
+
+                        <div class="ingredient-item" style="top: 22%; left: 0%;">伏特加 40%</div>
+                        <div class="ingredient-item" style="top: 20%; right: 0%; flex-direction: row-reverse;">白葡萄汁 8%</div>
+                        
+                        <div class="ingredient-item" style="bottom: 25%; left: 2%;">苦艾酒 2%</div>
+                        <div class="ingredient-item" style="bottom: 25%; right: 2%; flex-direction: row-reverse;">冰融水</div>
+                        
+                        <div class="ingredient-item" style="top: 8%; left: 38%; flex-direction: column; align-items: center;">
+                            <span style="margin-bottom: 4px;">杜松子</span>
+                        </div>
+                        <div class="ingredient-item" style="bottom: 0%; left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center;">
+                            <span style="margin-top: 4px;">紫苏</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layout-right">
+                    <div class="art-branch">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 20,90 Q 40,60 80,20" stroke="#222" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M 35,65 Q 45,55 60,60" stroke="#222" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M 55,45 Q 70,40 80,50" stroke="#222" stroke-width="1.2" stroke-linecap="round"/>
+                            <circle cx="25" cy="80" r="2" fill="#222"/>
+                            <circle cx="65" cy="38" r="1.5" fill="#222"/>
+                            <circle cx="78" cy="22" r="1.5" fill="#222"/>
+                        </svg>
+                    </div>
+
+                    <div class="note-block">
+                        <svg class="paperclip" viewBox="0 0 24 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1,1)"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="#a0a0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="url(#metalShine)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="metalShine" x1="0" y1="0" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+                                    <stop offset="50%" stop-color="rgba(255,255,255,0.9)"/>
+                                    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        
+                        <div class="block-header">
+                            <span class="block-title">前调</span>
+                            <span class="block-en">Top Notes</span>
+                        </div>
+                        <div class="block-desc">
+                            <span>钓系引导</span>
+                            <span>微文微擦</span>
+                            <span>恶趣挑逗</span>
+                        </div>
+                    </div>
+
+                    <div class="note-block">
+                        <svg class="paperclip" viewBox="0 0 24 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1,1)"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="#a0a0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="url(#metalShine)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="block-header">
+                            <span class="block-title">中调</span>
+                            <span class="block-en">Heart Notes</span>
+                        </div>
+                        <div class="block-desc">
+                            <span>日常高恋</span>
+                            <span>高擦诱导</span>
+                            <span>暧昧拉扯</span>
+                        </div>
+                    </div>
+
+                    <div class="note-block">
+                        <svg class="paperclip" viewBox="0 0 24 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1,1)"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="#a0a0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="url(#metalShine)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="block-header">
+                            <span class="block-title">尾调</span>
+                            <span class="block-en">Base Notes</span>
+                        </div>
+                        <div class="block-desc">
+                            <span>日常调情感为主</span>
+                            <span>涉及动描</span>
+                            <span>也许微涉三</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bottom-page">03 PAGE MIST</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bar 点单须知 -->
+    <div class="rules-stage" id="rulesStage">
+        <div class="rules-decor" id="rulesDecor">
+            <svg class="deco-item deco-shaker" viewBox="0 0 50 80" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 20 L35 20 L38 30 L12 30 Z" /><path d="M12 30 L38 30 L35 70 L15 70 Z" /><line x1="25" y1="10" x2="25" y2="20" /><rect x="20" y="5" width="10" height="5" rx="2" />
+            </svg>
+            <svg class="deco-item deco-martini" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 10 L90 10 L50 60 Z" /><line x1="50" y1="60" x2="50" y2="100" /><line x1="30" y1="100" x2="70" y2="100" /><circle cx="50" cy="35" r="5" />
+            </svg>
+            <div class="deco-scale"></div>
+            <div class="deco-bubbles"></div>
+        </div>
+
+        <div class="rules-cards-wrapper">
+            <div class="rules-card-bg layer-1"></div>
+            <div class="rules-card-bg layer-2"></div>
+            
+            <div class="rules-card" id="rulesCard">
+                <svg class="paperclip" viewBox="0 0 24 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="rgba(0,0,0,0.15)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(1,1)"/>
+                    <path d="M12 4 L12 52 C12 58 20 58 20 52 L20 12 C20 6 4 6 4 12 L4 44 C4 48 10 48 10 44 L10 16" stroke="#a0a0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                <div class="rules-header">
+                    <div class="rules-title"><span>◎</span>个人须知</div>
+                    <div class="rules-subtitle">Bar Ordering Guide</div>
+                </div>
+
+                <div class="rules-list">
+                    <div class="rule-item"><span class="rule-num">01.</span><div class="rule-text">提前告知<strong>喜雷</strong>、喜好称呼，一切请提前协商。</div></div>
+                    <div class="rule-item"><span class="rule-num">02.</span><div class="rule-text">不接受长时间抽象，<strong>补价请配合</strong>。</div></div>
+                    <div class="rule-item"><span class="rule-num">03.</span><div class="rule-text">请不要多次打断我，我会等你打完字说话。</div></div>
+                    <div class="rule-item"><span class="rule-num">04.</span><div class="rule-text">1h前10min退单/换人，0.5h前5min。卡点或超时<strong>不退不换默认送单</strong>。</div></div>
+                    <div class="rule-item"><span class="rule-num">05.</span><div class="rule-text">如对接下来的发展感到不适，请叫停。</div></div>
+                    <div class="rule-item"><span class="rule-num">06.</span><div class="rule-text">单内截图提前告知且<strong>禁传</strong>。</div></div>
+                    <div class="rule-item"><span class="rule-num">07.</span><div class="rule-text">单内所说一切皆为人设，<strong>不要上升单外</strong>。</div></div>
+                </div>
+
+                <div class="rules-footer">
+                    <span>EST. WINTER 2025</span>
+                    <span class="ft-mark">· 冬 ·</span>
+                    <span>Мир, серый.</span>
+                </div>
+
+                <div class="stamp"><div class="stamp-text">BAR<br>POLICY</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认下单弹窗 -->
+    <div class="confirm-stage" id="confirmStage">
+        <div class="confirm-paper">
+            <div class="handwriting-title">确认下单</div>
+            <div class="confirm-options" id="btnConfirm">
+                <div class="option-btn">确认 (Confirm)</div>
+                <svg class="gold-circle" viewBox="0 0 180 80">
+                    <path d="M 20,40 C 10,10 50,-5 90,10 C 140,25 160,55 120,70 C 80,85 20,75 15,40 C 12,20 30,5 70,5" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第五面：酒单小票 -->
+    <div class="receipt-stage" id="receiptStage">
+        <div class="receipt-paper">
+            <div class="r-header">
+                <div class="r-title">Red box</div>
+                <div class="r-sub">Leave the limited liver for<br>better alcohol.</div>
+            </div>
+            <div class="r-divider"></div>
+            <div class="r-row header">
+                <span>NO.</span><span>ITEM</span><span>PRICE</span>
+            </div>
+            <div class="r-divider" style="margin-top:0;"></div>
+            
+            <div class="r-row"><span>#1</span><span>氤氲之息 / Breath of Mist</span><span>¥48.00</span></div>
+            <div class="r-row"><span>#2</span><span>威士忌酸 / Whisky Sour</span><span>¥48.00</span></div>
+            <div class="r-row"><span>#3</span><span>干马天尼 / Dry Martini</span><span>¥58.00</span></div>
+            <div class="r-row"><span>#4</span><span>长岛冰茶 / Long Island</span><span>¥68.00</span></div>
+            
+            <div class="r-divider"></div>
+            
+            <div class="r-total">
+                <span>TOTAL</span>
+                <span>¥ 222.00</span>
+            </div>
+            <div class="r-row" style="margin-top:10px; font-size:10px;">
+                <span></span><span></span><span>SLIDE: 01</span>
+            </div>
+            
+            <div class="r-barcode"></div>
+            <div class="r-footer">Red box</div>
+
+            <!-- 图片签名 -->
+            <div class="signature-img-container">
+                <img class="signature-img" src="sign.png" alt="方休的签名">
+            </div>
+        </div>
+    </div>
+
+    <!-- 第六面：小票撕裂动画 -->
+    <div class="tear-stage" id="tearStage">
+        <div class="tear-paper-top">
+            <div class="r-header">
+                <div class="r-title">Red box</div>
+                <div class="r-sub">Leave the limited liver for<br>better alcohol.</div>
+            </div>
+            <div class="r-divider"></div>
+            <div class="r-row header">
+                <span>NO.</span><span>ITEM</span><span>PRICE</span>
+            </div>
+            <div class="r-divider" style="margin-top:0;"></div>
+            <div class="r-row"><span>#1</span><span>氤氲之息 / Breath of Mist</span><span>¥48.00</span></div>
+            <div class="r-row"><span>#2</span><span>威士忌酸 / Whisky Sour</span><span>¥48.00</span></div>
+        </div>
+
+        <div class="tear-paper-bottom">
+            <div class="r-row" style="margin-top: 50px;"><span>#3</span><span>干马天尼 / Dry Martini</span><span>¥58.00</span></div>
+            <div class="r-row"><span>#4</span><span>长岛冰茶 / Long Island</span><span>¥68.00</span></div>
+            <div class="r-divider"></div>
+            <div class="r-total">
+                <span>TOTAL</span>
+                <span>¥ 222.00</span>
+            </div>
+            <div class="r-row" style="margin-top:10px; font-size:10px;">
+                <span></span><span></span><span>SLIDE: 01</span>
+            </div>
+            <div class="r-barcode"></div>
+            <div class="r-footer">Red box</div>
+        </div>
+    </div>
+
+    <!-- 第七面：碰杯与字幕 -->
+    <div class="cheers-stage" id="cheersStage">
+        <!-- S型细线底纹 -->
+        <svg class="s-curve-line" viewBox="0 0 600 400">
+            <path class="s-path" d="M 50 100 C 200 100 400 300 550 300" />
+        </svg>
+
+        <div class="cheers-wrap">
+            <!-- 左高脚杯 -->
+            <div class="cheers-glass cheers-glass-left">
+                <div class="h-bowl">
+                    <div class="c-liquid"></div>
+                    <div class="splash splash-1"></div>
+                    <div class="splash splash-2"></div>
+                    <div class="splash splash-3"></div>
+                    <div class="splash splash-4"></div>
+                    <div class="splash splash-5"></div>
+                </div>
+                <div class="h-stem"></div>
+                <div class="h-base"></div>
+            </div>
+            <!-- 右高脚杯 -->
+            <div class="cheers-glass cheers-glass-right">
+                <div class="h-bowl">
+                    <div class="c-liquid"></div>
+                    <div class="splash splash-1"></div>
+                    <div class="splash splash-2"></div>
+                    <div class="splash splash-3"></div>
+                    <div class="splash splash-4"></div>
+                    <div class="splash splash-5"></div>
+                </div>
+                <div class="h-stem"></div>
+                <div class="h-base"></div>
+            </div>
+            
+            <div class="clink-flash"></div>
+        </div>
+
+        <!-- 普通宋体字幕 -->
+        <div class="cheers-text-wrap">
+            <div class="cheers-title">来 见 我</div>
+            <div class="cheers-subtitle">Nothing else to ask for</div>
+        </div>
+    </div>
+
+    <!-- 点击继续提示 -->
+    <div class="continue-hint" id="continueHint">
+        <span class="ch-dot"></span>
+        <span class="ch-text">点击继续</span>
+    </div>
+
+    <!-- 背景音乐 (添加 loop 属性，保证一直循环) -->
+    <audio id="bgm" loop preload="auto">
+        <source src="six-play.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+
+    <script>
+        (function() {
+            const glassContainer = document.getElementById('glassContainer');
+            const glassEl = document.getElementById('glassEl');
+            const orchid = document.getElementById('orchid');
+            const promptBox = document.getElementById('promptBox');
+            const nicknameInput = document.getElementById('nicknameInput');
+            const menuCard = document.getElementById('menuCard');
+            const displayNameSpan = document.getElementById('displayName');
+            const bgm = document.getElementById('bgm');
+            const mist = document.getElementById('mist');
+            const ringScene = document.getElementById('ringScene');
+            const profilePage = document.getElementById('profilePage');
+            const snowflakes = document.getElementById('snowflakes');
+            const noteStage = document.getElementById('noteStage');
+            const notePage = document.getElementById('notePage');
+            const rulesStage = document.getElementById('rulesStage');
+            const rulesCard = document.getElementById('rulesCard');
+            const rulesDecor = document.getElementById('rulesDecor');
+            const confirmStage = document.getElementById('confirmStage');
+            const btnConfirm = document.getElementById('btnConfirm');
+            const receiptStage = document.getElementById('receiptStage');
+            const tearStage = document.getElementById('tearStage');
+            const cheersStage = document.getElementById('cheersStage');
+            const continueHint = document.getElementById('continueHint');
+
+            // 设置音量，避免过吵
+            bgm.volume = 0.35;
+            let globalInteractionLock = false;
+
+            /* ===== 生成雪花 ===== */
+            (function buildSnowflakes() {
+                const count = 22;
+                const template = `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round">
+                    <line x1="10" y1="1.2" x2="10" y2="18.8"/>
+                    <line x1="2.5" y1="5.6" x2="17.5" y2="14.4"/>
+                    <line x1="2.5" y1="14.4" x2="17.5" y2="5.6"/>
+                    <path d="M10 4 L7.8 5.9 M10 4 L12.2 5.9"/>
+                    <path d="M10 16 L7.8 14.1 M10 16 L12.2 14.1"/>
+                    <path d="M4.2 7.2 L4.8 9.6 M4.2 7.2 L6.5 8.1"/>
+                    <path d="M15.8 7.2 L15.2 9.6 M15.8 7.2 L13.5 8.1"/>
+                    <path d="M4.2 12.8 L6.5 11.9 M4.2 12.8 L4.8 10.4"/>
+                    <path d="M15.8 12.8 L13.5 11.9 M15.8 12.8 L15.2 10.4"/>
+                </svg>`;
+                for (let i = 0; i < count; i++) {
+                    const s = document.createElement('div');
+                    s.className = 'snowflake';
+                    const size = 6 + Math.random() * 9;
+                    const left = Math.random() * 100;
+                    const dur = 9 + Math.random() * 11;
+                    const delay = Math.random() * 6;
+                    const drift = (Math.random() * 80 - 40).toFixed(0) + 'px';
+                    const o = (0.2 + Math.random() * 0.3).toFixed(2);
+                    s.style.left = left + '%';
+                    s.style.width = size + 'px';
+                    s.style.height = size + 'px';
+                    s.style.animationDuration = dur + 's';
+                    s.style.animationDelay = delay + 's';
+                    s.style.setProperty('--drift', drift);
+                    s.style.setProperty('--o', o);
+                    s.innerHTML = template;
+                    snowflakes.appendChild(s);
+                }
+            })();
+
+            /* ===== 初始动画锁定最终状态 ===== */
+            setTimeout(() => glassEl.classList.add('visible'), 3000);
+            setTimeout(() => orchid.classList.add('visible'), 7500);
+
+            /* ===== 兰花落入杯中后酒杯晃动 ===== */
+            setTimeout(() => {
+                glassContainer.classList.add('shake');
+                setTimeout(() => glassContainer.classList.remove('shake'), 1500);
+            }, 7400);
+
+            /* ===== 提示框激活 ===== */
+            setTimeout(() => {
+                promptBox.classList.add('show');
+            }, 7000);
+
+            setTimeout(() => {
+                promptBox.classList.add('active');
+                nicknameInput.focus();
+            }, 8500);
+
+            /* ==========================================================
+               交互核心逻辑优化 (防误触锁)
+               ========================================================== */
+            
+            function waitForClick(callback, options) {
+                options = options || {};
+                const delay = options.delay != null ? options.delay : 600;
+                
+                globalInteractionLock = true;
+                
+                setTimeout(() => {
+                    continueHint.classList.add('show');
+                    globalInteractionLock = false;
+                    
+                    let armed = false;
+                    const handler = () => {
+                        if (!armed) return;
+                        continueHint.classList.remove('show');
+                        document.removeEventListener('click', handler);
+                        document.removeEventListener('keydown', handler);
+                        document.removeEventListener('touchstart', handler);
+                        callback();
+                    };
+                    setTimeout(() => {
+                        armed = true;
+                        document.addEventListener('click', handler);
+                        document.addEventListener('keydown', handler);
+                        document.addEventListener('touchstart', handler);
+                    }, 380);
+                }, delay);
+            }
+
+            let shown = false;
+            function showMenuCard() {
+                if (shown) return;
+                shown = true;
+                
+                // 【核心交互点】用户在此刻按回车或失焦，触发音频播放
+                // 因为有用户交互，浏览器不会拦截
+                if (bgm.paused) {
+                    bgm.play().catch(err => console.log('BGM 播放失败:', err));
+                }
+
+                const name = nicknameInput.value.trim();
+                displayNameSpan.textContent = name === '' ? 'Stranger' : name;
+                
+                promptBox.classList.remove('active', 'show');
+                promptBox.style.animation = 'none';
+                void promptBox.offsetWidth;
+                promptBox.style.transition = 'opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease';
+                promptBox.style.opacity = '0';
+                promptBox.style.transform = 'translate(-50%, 50px)';
+                promptBox.style.filter = 'blur(6px)';
+                promptBox.style.pointerEvents = 'none';
+
+                menuCard.classList.add('show');
+                setTimeout(() => {
+                    glassContainer.classList.add('shake');
+                    setTimeout(() => glassContainer.classList.remove('shake'), 1500);
+                }, 300);
+                
+                waitForClick(startMistPhase, { delay: 1500 });
+            }
+
+            function startMistPhase() {
+                mist.classList.add('show');
+                menuCard.style.transition = 'opacity 1.6s ease, filter 1.6s ease';
+                menuCard.style.opacity = '0';
+                menuCard.style.filter = 'blur(10px)';
+                menuCard.style.pointerEvents = 'none';
+                setTimeout(() => { ringScene.classList.add('show'); }, 700);
+                setTimeout(() => { mist.classList.remove('show'); }, 3800);
+                setTimeout(() => { waitForClick(ringCollisionPhase, { delay: 400 }); }, 4500);
+            }
+
+            function ringCollisionPhase() {
+                ringScene.classList.add('collide');
+                setTimeout(() => {
+                    profilePage.classList.add('show');
+                    setTimeout(() => {
+                        ringScene.style.transition = 'opacity 1.2s ease';
+                        ringScene.style.opacity = '0';
+                    }, 600);
+                    setTimeout(() => { profilePage.classList.add('decor-active'); }, 1700);
+                    setTimeout(() => { waitForClick(openNotePage, { delay: 400 }); }, 3600);
+                }, 800);
+            }
+
+            let noteOpened = false;
+            function openNotePage() {
+                if (noteOpened) return;
+                noteOpened = true;
+                profilePage.style.pointerEvents = 'none';
+                profilePage.style.transition = 'opacity 1.1s ease, transform 1.6s ease';
+                profilePage.style.opacity = '0';
+                profilePage.style.transform = 'scale(1.05)';
+                noteStage.classList.add('show');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        notePage.classList.add('open');
+                        setTimeout(() => { waitForClick(showRulesPage, { delay: 400 }); }, 2500);
+                    });
+                });
+            }
+
+            let rulesShown = false;
+            function showRulesPage() {
+                if (rulesShown) return;
+                rulesShown = true;
+                notePage.style.pointerEvents = 'none';
+                notePage.style.transition = 'opacity 1s ease, transform 1.2s ease';
+                notePage.style.opacity = '0';
+                notePage.style.transform = 'scale(0.98) translateY(-10px)';
+                rulesStage.classList.add('show');
+                setTimeout(() => {
+                    waitForClick(showConfirmStage, { delay: 400 });
+                }, 1500);
+            }
+
+            // 弹出确认便签
+            function showConfirmStage() {
+                confirmStage.classList.add('show');
+                // 绑定唯一确认按钮事件
+                btnConfirm.onclick = () => {
+                    btnConfirm.style.pointerEvents = 'none'; // 防止连点
+                    confirmStage.classList.remove('show');
+                    setTimeout(showReceiptStage, 600);
+                };
+            }
+
+            // 展示小票
+            let receiptShown = false;
+            function showReceiptStage() {
+                if (receiptShown) return;
+                receiptShown = true;
+                receiptStage.classList.add('show');
+                
+                // 停留 2.5 秒后触发撕裂动画
+                setTimeout(startTearAnimation, 2500);
+            }
+
+            // 触发撕裂动画
+            let tearShown = false;
+            function startTearAnimation() {
+                if (tearShown) return;
+                tearShown = true;
+                
+                // 原小票柔和淡出
+                receiptStage.style.transition = 'opacity 0.5s ease';
+                receiptStage.style.opacity = '0';
+                
+                // 显示撕裂层，背景为纯色
+                tearStage.classList.add('show');
+                
+                // 撕裂后 1.5 秒，触发碰杯
+                setTimeout(startCheerAnimation, 1500);
+            }
+
+            // 触发碰杯动画
+            let cheerShown = false;
+            function startCheerAnimation() {
+                if (cheerShown) return;
+                cheerShown = true;
+                
+                // 隐藏撕裂层
+                tearStage.style.display = 'none';
+                
+                // 展示碰杯场景
+                cheersStage.classList.add('show');
+                
+                // 飞入耗时 0.8s + 延迟 0.5s = 1.3s 时发生碰撞
+                setTimeout(() => {
+                    cheersStage.classList.add('clink');
+                }, 1300);
+            }
+
+            // 绑定输入框交互
+            nicknameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if(!globalInteractionLock) showMenuCard();
+                }
+            });
+
+            nicknameInput.addEventListener('blur', () => {
+                if (!shown && nicknameInput.value.trim() !== '') {
+                    if(!globalInteractionLock) showMenuCard();
+                }
+            });
+
+            // 视差与光斑交互
+            rulesStage.addEventListener('mousemove', (e) => {
+                if (!rulesStage.classList.contains('show')) return;
+                const rect = rulesCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                rulesCard.style.setProperty('--mouse-x', `${x}px`);
+                rulesCard.style.setProperty('--mouse-y', `${y}px`);
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const moveX = (e.clientX - centerX) / centerX;
+                const moveY = (e.clientY - centerY) / centerY;
+                rulesDecor.style.transform = `translate(${moveX * 15}px, ${moveY * 15}px)`;
+            });
+        })();
+    </script>
+</body>
+</html>
